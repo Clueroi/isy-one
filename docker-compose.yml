@@ -1,0 +1,21 @@
+services:
+
+  api:
+    build: .
+    container_name: isy-api
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - ./scripts:/scripts
+
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    container_name: isy-postgres
+
+  redis:
+    image: redis:7
+    container_name: isy-redis
