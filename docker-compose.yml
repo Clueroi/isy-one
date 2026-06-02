@@ -2,20 +2,23 @@ services:
 
   api:
     build: .
-    container_name: isy-api
-    ports:
-      - "3000:3000"
-
     volumes:
       - ./scripts:/scripts
 
-    depends_on:
-      - postgres
-
   postgres:
-    image: postgres:16
-    container_name: isy-postgres
-
-  redis:
-    image: redis:7
-    container_name: isy-redis
+    container_name: isy-pg
+    image: postgres
+    ports:
+      - 5440:5432
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: isy-one
+      PGDATA: /data/postgres
+  cache:
+    container_name: isy-cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
