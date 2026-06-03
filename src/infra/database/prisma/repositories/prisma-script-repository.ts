@@ -9,8 +9,40 @@ export class PrismaScriptRepository implements ScriptRepository {
 
   constructor(private prisma: PrismaService) { }
 
-  save(script: Script): Promise<void> {
-    throw new Error('Method not implemented.')
+  async findMany(): Promise<Script[]> {
+    const scripts = await this.prisma.script.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 20,
+    })
+
+    return scripts.map(PrismaScriptMapper.toDomain)
+  }
+
+  async save(script: Script): Promise<void> {
+    const data = PrismaScriptMapper.toPrisma(script)
+
+    await this.prisma.script.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    })
+  }
+
+  async findById(id: string): Promise<Script | null> {
+    const script = await this.prisma.script.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!script) {
+      return null
+    }
+
+    return PrismaScriptMapper.toDomain(script)
   }
 
   async create(script: Script): Promise<void> {
