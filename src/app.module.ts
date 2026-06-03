@@ -11,7 +11,8 @@ import { AuthModule } from './infra/auth/auth.module';
     isGlobal: true
   }),
     EnvModule,
-    AuthModule
+    AuthModule,
+    HttpModule
   ],
 })
 
