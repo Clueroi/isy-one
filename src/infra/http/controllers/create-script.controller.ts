@@ -1,6 +1,5 @@
 import { Body, Controller, HttpCode, Post, UseGuards, BadRequestException } from '@nestjs/common'
 import { z } from 'zod'
-import { JwtAuthGuard } from 'src/infra/auth/jwt-auth.guard'
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import { CreateScriptUseCase } from 'src/domain/scripts/application/use-cases/create-script'
 
@@ -19,7 +18,6 @@ export class CreateScriptController {
   constructor(private createScriptUseCase: CreateScriptUseCase) { }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   @HttpCode(201)
   async handle(
     @Body(new ZodValidationPipe(createScriptSchema)) body: CreateScriptSchema,

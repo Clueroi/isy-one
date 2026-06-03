@@ -11,7 +11,7 @@ import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import { ExecuteScriptUseCase } from 'src/domain/execution/application/use-cases/execute-script-use-case'
 
 const executeScriptBodySchema = z.object({
-  scriptId: z.string().uuid(),
+  scriptId: z.string()
 })
 
 type ExecuteScriptBodySchema = z.infer<

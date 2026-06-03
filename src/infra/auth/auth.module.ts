@@ -27,10 +27,10 @@ import { EnvService } from "../env/env.service";
   ],
   providers:[
     JwtStrategy,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: JwtAuthGuard
+    // },
     EnvService
   ]
 })
