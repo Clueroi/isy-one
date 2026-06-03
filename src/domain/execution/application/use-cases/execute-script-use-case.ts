@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common'
-import { spawn } from 'child_process'
-
 import { Either, left, right } from 'src/core/either'
 import { Execution, ExecutionStatus } from '../../enterprise/entity/execute'
 import { ScriptRepository } from 'src/domain/scripts/application/repositories/script.repository'
 import { ExecutionRepository } from '../repositories/execution-repository'
+import { ShellExecutor } from 'src/domain/shell/application/use-cases/shell-executor'
 
 
 interface ExecuteScriptUseCaseRequest {
@@ -23,7 +22,8 @@ export class ExecuteScriptUseCase {
   constructor(
     private scriptRepository: ScriptRepository,
     private executionRepository: ExecutionRepository,
-  ) {}
+    private shellExecutor: ShellExecutor,
+  ) { }
 
   async execute({
     scriptId,
@@ -33,6 +33,15 @@ export class ExecuteScriptUseCase {
     if (!script) {
       return left('Script not found')
     }
+
+    if (
+      !script.path.endsWith('.sh')
+    ) {
+      throw new Error(
+        'Arquivo inválido',
+      )
+    }
+
 
     const execution = Execution.create({
       scriptId,
@@ -44,36 +53,11 @@ export class ExecuteScriptUseCase {
 
     await this.executionRepository.create(execution)
 
-    const result = await new Promise<{
-      stdout: string
-      stderr: string
-      success: boolean
-    }>((resolve, reject) => {
-      const child = spawn(script.path)
+    const result =
+      await this.shellExecutor.execute(
+        script.path,
+      )
 
-      let stdout = ''
-      let stderr = ''
-
-      child.stdout.on('data', (data) => {
-        stdout += data.toString()
-      })
-
-      child.stderr.on('data', (data) => {
-        stderr += data.toString()
-      })
-
-      child.on('error', (error) => {
-        reject(error)
-      })
-
-      child.on('close', (code) => {
-        resolve({
-          stdout,
-          stderr,
-          success: code === 0,
-        })
-      })
-    })
 
     execution.stdout = result.stdout
     execution.stderr = result.stderr

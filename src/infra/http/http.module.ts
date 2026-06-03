@@ -6,10 +6,12 @@ import { DeleteScriptController } from './controllers/desactive-script.controlle
 import { ExecuteScriptController } from './controllers/execute-script.controller';
 import { DeleteScriptUseCase } from 'src/domain/scripts/application/use-cases/delete-use-case';
 import { ExecuteScriptUseCase } from 'src/domain/execution/application/use-cases/execute-script-use-case';
+import { ShellModule } from './shell/shell.module';
 
 @Module({
   imports: [
     DatabaseModule,
+    ShellModule
   ],
   controllers:[
     CreateScriptController ,
