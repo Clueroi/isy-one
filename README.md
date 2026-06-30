@@ -1,239 +1,264 @@
-# ISY One
+# ISY One - Hackaton FMU 2026
 
-Sistema de gerenciamento e execução de scripts construído com NestJS, permitindo gerenciamento de scripts shell, execução assíncrona e monitoramento de resultados.
+# Script Management and Execution System
 
-## 🚀 Tecnologias Utilizadas
+A script management and execution system built with **NestJS**, enabling shell script management, asynchronous execution, and execution result monitoring.
+
+## 🚀 Technologies Used
 
 ### Backend
-- **NestJS 11.0.1** - Framework Node.js progressivo
-- **Prisma 7.8.0** - ORM type-safe para TypeScript
-- **PostgreSQL** - Banco de dados relacional
-- **Passport** - Middleware de autenticação
-- **JWT** - Autenticação baseada em tokens
-- **Zod 4.4.3** - Validação de schemas
-- **Zod Validation Error** - Tratamento de erros de validação
+- **NestJS 11.0.1** - Progressive Node.js framework
+- **Prisma 7.8.0** - Type-safe ORM for TypeScript
+- **PostgreSQL** - Relational database
+- **Passport** - Authentication middleware
+- **JWT** - Token-based authentication
+- **Zod 4.4.3** - Schema validation
+- **Zod Validation Error** - Validation error handling
 
-### Ferramentas de Desenvolvimento
-- **TypeScript 5.7.3** - Tipagem estática
-- **Jest 30.0.0** - Framework de testes
-- **ESLint 9.18.0** - Linting de código
-- **Prettier 3.4.2** - Formatação de código
-- **Docker** - Containerização
+### Development Tools
+- **TypeScript 5.7.3** - Static typing
+- **Jest 30.0.0** - Testing framework
+- **ESLint 9.18.0** - Code linting
+- **Prettier 3.4.2** - Code formatting
+- **Docker** - Containerization
 
-## 📋 Funcionalidades
+## 📋 Features
 
-- **Gerenciamento de Scripts**: Criação, leitura, atualização e exclusão de scripts
-- **Execução de Scripts**: Execução assíncrona de scripts shell com monitoramento
-- **Histórico de Execuções**: Registro completo de execuções com status, stdout e stderr
-- **Autenticação JWT**: Sistema de autenticação seguro com tokens
-- **Gerenciamento de Usuários**: Registro e autenticação de usuários
-- **Organizações**: Suporte a múltiplas organizações
-- **Configurações**: Sistema de settings para configurações globais
-- **Arquitetura DDD**: Domain-Driven Design com separação clara de camadas
-- **Clean Architecture**: Separação de preocupações e responsabilidades
+- **Script Management**: Create, read, update, and delete shell scripts
+- **Script Execution**: Asynchronous shell script execution with monitoring
+- **Execution History**: Complete execution logs with status, stdout, and stderr
+- **JWT Authentication**: Secure token-based authentication
+- **User Management**: User registration and authentication
+- **Organizations**: Multi-organization support
+- **Settings**: Global system configuration
+- **DDD Architecture**: Domain-Driven Design with clear layer separation
+- **Clean Architecture**: Separation of concerns and responsibilities
 
-## 🛠️ Pré-requisitos
+## 🛠️ Prerequisites
 
 - Node.js 20+
-- PostgreSQL (ou use Docker Compose)
-- npm, yarn ou pnpm
+- PostgreSQL (or Docker Compose)
+- npm, yarn, or pnpm
 
-## 📦 Instalação
+## 📦 Installation
 
-1. Clone o repositório:
+1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd isy-one
 ```
 
-2. Instale as dependências:
+2. Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. Configure as variáveis de ambiente:
+3. Configure the environment variables:
+
 ```bash
 cp .env.example .env
 ```
 
-Edite o arquivo `.env` com suas configurações:
+Edit the `.env` file with your configuration:
+
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/isy_one"
 PORT=3000
 JWT_SECRET=your-secret-key
 ```
 
-## 🚀 Executando o Projeto
+## 🚀 Running the Project
 
-### Com Docker Compose (Recomendado)
+### Using Docker Compose (Recommended)
 
-1. Inicie o PostgreSQL:
+1. Start PostgreSQL:
+
 ```bash
 docker-compose up -d
 ```
 
-2. Execute as migrações do Prisma:
+2. Run Prisma migrations:
+
 ```bash
 npx prisma migrate dev
 ```
 
-3. Inicie o servidor de desenvolvimento:
+3. Start the development server:
+
 ```bash
 npm run start:dev
 ```
 
-### Sem Docker
+### Without Docker
 
-1. Certifique-se de ter o PostgreSQL rodando localmente
-2. Configure a `DATABASE_URL` no `.env`
-3. Execute as migrações:
+1. Make sure PostgreSQL is running locally.
+2. Configure the `DATABASE_URL` in the `.env` file.
+3. Run the migrations:
+
 ```bash
 npx prisma migrate dev
 ```
 
-4. Inicie o servidor:
+4. Start the server:
+
 ```bash
 npm run start:dev
 ```
 
-## 📜 Scripts Disponíveis
+## 📜 Available Scripts
 
 ```bash
-npm run build          # Build do projeto para produção
-npm run format         # Formata o código com Prettier
-npm run start          # Inicia o servidor
-npm run start:dev      # Inicia em modo watch (desenvolvimento)
-npm run start:debug    # Inicia em modo debug
-npm run start:prod     # Inicia o servidor de produção
-npm run lint           # Executa o ESLint e corrige erros
-npm run test           # Executa testes unitários
-npm run test:watch     # Executa testes em modo watch
-npm run test:cov       # Executa testes com coverage
-npm run test:e2e       # Executa testes e2e
+npm run build          # Build the project for production
+npm run format         # Format the code with Prettier
+npm run start          # Start the application
+npm run start:dev      # Start in development (watch) mode
+npm run start:debug    # Start in debug mode
+npm run start:prod     # Start the production server
+npm run lint           # Run ESLint and fix issues
+npm run test           # Run unit tests
+npm run test:watch     # Run tests in watch mode
+npm run test:cov       # Run tests with coverage
+npm run test:e2e       # Run end-to-end tests
 ```
 
-## 🗄️ Estrutura do Banco de Dados
+## 🗄️ Database Structure
 
-### Tabelas Principais
+### Main Tables
 
-- **users**: Usuários do sistema com autenticação
-- **scripts**: Scripts shell gerenciados pelo sistema
-- **executions**: Histórico de execuções dos scripts
-- **settings**: Configurações globais do sistema
-- **organizations**: Organizações/empresas
+- **users**: Authenticated system users
+- **scripts**: Shell scripts managed by the system
+- **executions**: Script execution history
+- **settings**: Global system settings
+- **organizations**: Organizations/companies
 
-### Status de Execução
+### Execution Status
 
-- `PENDING` - Aguardando execução
-- `RUNNING` - Em execução
-- `SUCCESS` - Execução concluída com sucesso
-- `FAILED` - Execução falhou
+- `PENDING` - Waiting for execution
+- `RUNNING` - Currently running
+- `SUCCESS` - Execution completed successfully
+- `FAILED` - Execution failed
 
 ## 🔌 API Endpoints
 
-### Autenticação
-- `POST /auth/login` - Login de usuário
-- `POST /auth/register` - Registro de novo usuário
+### Authentication
+
+- `POST /auth/login` - User login
+- `POST /auth/register` - Register a new user
 
 ### Scripts
-- `GET /scripts` - Listar todos os scripts
-- `GET /scripts/:id` - Obter script por ID
-- `POST /scripts` - Criar novo script
-- `PUT /scripts/:id` - Atualizar script
-- `DELETE /scripts/:id` - Deletar script
-- `PATCH /scripts/:id/deactivate` - Desativar script
 
-### Execuções
-- `POST /scripts/:id/execute` - Executar um script
+- `GET /scripts` - List all scripts
+- `GET /scripts/:id` - Get a script by ID
+- `POST /scripts` - Create a new script
+- `PUT /scripts/:id` - Update a script
+- `DELETE /scripts/:id` - Delete a script
+- `PATCH /scripts/:id/deactivate` - Deactivate a script
 
-## 📁 Estrutura do Projeto
+### Executions
 
-```
+- `POST /scripts/:id/execute` - Execute a script
+
+## 📁 Project Structure
+
+```text
 isy-one/
 ├── src/
-│   ├── domain/              # Camada de domínio (DDD)
-│   │   ├── execution/       # Entidade de execução
-│   │   │   ├── application/ # Casos de uso e repositórios
-│   │   │   └── enterprise/  # Regras de negócio
-│   │   ├── scripts/         # Entidade de scripts
-│   │   │   ├── application/ # Casos de uso e repositórios
-│   │   │   └── enterprise/  # Regras de negócio
-│   │   └── user/            # Entidade de usuários
-│   ├── infra/               # Camada de infraestrutura
-│   │   ├── auth/           # Implementação de autenticação
-│   │   ├── database/       # Configuração do Prisma
-│   │   ├── env/            # Variáveis de ambiente
-│   │   └── http/           # Camada HTTP (controllers)
-│   │       ├── controllers/ # Controladores REST
-│   │       ├── pipes/       # Pipes de validação
-│   │       └── shell/       # Utilitários de shell
-│   ├── generated/          # Código gerado (Prisma)
-│   ├── app.module.ts       # Módulo raiz
-│   └── main.ts             # Entry point da aplicação
-├── prisma/                 # Schema e migrações do Prisma
-├── data/                   # Diretório de dados
-├── docker-compose.yml      # Configuração Docker
-├── Dockerfile              # Imagem Docker
-└── tsconfig.json           # Configuração TypeScript
+│   ├── domain/
+│   │   ├── execution/
+│   │   │   ├── application/
+│   │   │   └── enterprise/
+│   │   ├── scripts/
+│   │   │   ├── application/
+│   │   │   └── enterprise/
+│   │   └── user/
+│   ├── infra/
+│   │   ├── auth/
+│   │   ├── database/
+│   │   ├── env/
+│   │   └── http/
+│   │       ├── controllers/
+│   │       ├── pipes/
+│   │       └── shell/
+│   ├── generated/
+│   ├── app.module.ts
+│   └── main.ts
+├── prisma/
+├── data/
+├── docker-compose.yml
+├── Dockerfile
+└── tsconfig.json
 ```
 
-## 🏗️ Arquitetura
+## 🏗️ Architecture
 
-O projeto segue os princípios de **Domain-Driven Design (DDD)** com separação clara entre:
+The project follows **Domain-Driven Design (DDD)** principles with a clear separation between:
 
-- **Domain Layer**: Contém as regras de negócio e entidades do domínio
-- **Infrastructure Layer**: Implementações técnicas como banco de dados, HTTP, autenticação
-- **Application Layer**: Casos de uso que orquestram as operações
+- **Domain Layer**: Contains business rules and domain entities.
+- **Application Layer**: Orchestrates business use cases.
+- **Infrastructure Layer**: Handles technical implementations such as the database, HTTP layer, and authentication.
 
-## 🔧 Comandos Prisma
+## 🔧 Prisma Commands
 
 ```bash
-npx prisma migrate dev          # Criar e aplicar nova migração
-npx prisma migrate deploy       # Aplicar migrações em produção
-npx prisma studio               # Abrir Prisma Studio (GUI)
-npx prisma generate             # Gerar Prisma Client
-npx prisma db seed              # Popular banco com dados de exemplo
+npx prisma migrate dev      # Create and apply a new migration
+npx prisma migrate deploy   # Apply migrations in production
+npx prisma studio           # Open Prisma Studio (GUI)
+npx prisma generate         # Generate Prisma Client
+npx prisma db seed          # Seed the database
 ```
 
-## 🧪 Testes
+## 🧪 Testing
 
-### Testes Unitários
+### Unit Tests
+
 ```bash
 npm run test
 ```
 
-### Testes E2E
+### End-to-End Tests
+
 ```bash
 npm run test:e2e
 ```
 
 ### Coverage
+
 ```bash
 npm run test:cov
 ```
 
-## 🔐 Autenticação
+## 🔐 Authentication
 
-O sistema utiliza JWT (JSON Web Tokens) para autenticação. Para acessar as rotas protegidas:
+The system uses **JWT (JSON Web Tokens)** for authentication.
 
-1. Faça login em `/auth/login` para obter o token
-2. Inclua o token no header `Authorization`: `Bearer <token>`
+To access protected endpoints:
 
-## 📝 Exemplo de Uso
+1. Authenticate through `/auth/login`.
+2. Include the token in the `Authorization` header:
 
-### Criar um Script
+```text
+Authorization: Bearer <token>
+```
+
+## 📝 Usage Examples
+
+### Create a Script
+
 ```bash
 curl -X POST http://localhost:3000/scripts \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
   -d '{
-    "name": "Backup Database",
-    "description": "Executa backup do banco de dados",
+    "name": "Database Backup",
+    "description": "Runs a database backup",
     "path": "/scripts/backup.sh"
   }'
 ```
 
-### Executar um Script
+### Execute a Script
+
 ```bash
 curl -X POST http://localhost:3000/scripts/{id}/execute \
   -H "Authorization: Bearer <token>" \
@@ -247,42 +272,44 @@ curl -X POST http://localhost:3000/scripts/{id}/execute \
 
 ## 🐳 Docker
 
-### Build da Imagem
+### Build the Image
+
 ```bash
 docker build -t isy-one .
 ```
 
-### Executar com Docker Compose
+### Run with Docker Compose
+
 ```bash
 docker-compose up -d
 ```
 
-## 📦 Deploy
+## 📦 Deployment
 
-Para produção:
+For production:
 
-1. Build do projeto:
+1. Build the project:
+
 ```bash
 npm run build
 ```
 
-2. Execute em modo produção:
+2. Start the production server:
+
 ```bash
 npm run start:prod
 ```
 
-Ou use a imagem Docker:
+Or run using Docker:
+
 ```bash
 docker run -p 3000:3000 isy-one
 ```
 
-## 📝 Licença
+## 📝 License
 
-Este projeto é privado e propriedade da Clueroi.
+This project is private and owned by **Clueroi**.
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Este é um projeto de desenvolvimento interno. Siga as práticas estabelecidas pela equipe.
-
-## 📞 Suporte
-
+This is an internal development project. Please follow the team's established standards and best practices.
